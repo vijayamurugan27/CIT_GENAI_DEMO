@@ -1,0 +1,14 @@
+https://atomshaale.com/
+
+install 
+1) lmstudio
+2) Ollama
+3) mini-conda
+4) vs-code
+5) google antigravity, claude desktop
+6) git-hub desktop
+
+
+for word embedding visualisation.
+
+https://projector.tensorflow.org/

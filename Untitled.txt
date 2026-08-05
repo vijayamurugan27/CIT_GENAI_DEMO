@@ -1,0 +1,24 @@
+
+install 
+1) lmstudio
+2) Ollama
+3) mini-conda
+4) vs-code
+5) google antigravity, claude desktop
+6) git-hub desktop
+
+
+Modelfile
+
+
+installing n8n in windows system
+
+node -v
+npm -v
+
+npm install n8n -g
+
+n8n start
+
+
+

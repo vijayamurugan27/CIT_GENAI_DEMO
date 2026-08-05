@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI FAQ Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>AI-Powered FAQ Assistant</h1>
+      <p>Ask questions about Flask, AI APIs, frontend basics, deployment, or secure API key management.</p>
+
+      <form id="faq-form">
+        <input id="question" name="question" type="text" placeholder="Type your question here" required />
+        <button type="submit">Ask</button>
+      </form>
+
+      <div id="answer-box" class="answer-box">
+        <strong>Assistant:</strong>
+        <span id="answer-text">Your answer will appear here.</span>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById('faq-form');
+      const answerText = document.getElementById('answer-text');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const question = document.getElementById('question').value;
+        answerText.textContent = 'Thinking...';
+
+        const response = await fetch('/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+        answerText.textContent = data.answer;
+      });
+    </script>
+  </body>
+</html>

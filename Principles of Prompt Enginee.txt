@@ -1,0 +1,92 @@
+Part 1: Principles of Prompt Engineering
+
+Before diving into specific techniques, these are the universal laws of talking to LLMs:
+
+    Clarity is King: Write specific, unambiguous instructions. If the AI misunderstands, it’s usually because the prompt was vague.
+
+    Provide Context: The AI does not know your project, audience, or constraints unless you tell it. Define the persona, goal, and tone.
+
+    Use Delimiters: Use """triple quotes""", ---dashes---, or ###headers### to clearly separate the instruction from the input text. This prevents the AI from confusing the prompt with the data.
+
+    Specify the Output Format: Tell the AI exactly how to reply (e.g., "JSON format," "Bullet points," "Markdown table," "Maximum 50 words").
+
+    Iterate: Prompt engineering is rarely a one-shot success. Start broad, analyze the output, and refine your prompt based on what went wrong.
+
+Part 2: Zero-shot, One-shot & Few-shot Prompting
+
+These techniques define how many examples you give the AI to show it what you want.
+Technique	Definition	When to Use	Example Prompt Snippet
+Zero-shot	No examples provided. You rely solely on the model's pre-trained knowledge.	Simple tasks, common knowledge, translation, and summarization.	"Classify this review as Positive or Negative: 'The battery died after 1 hour.'"
+One-shot	Provide one complete example of the task before asking the AI to perform it.	Complex formatting tasks where the AI needs to see the style, tone, or structure.	"Turn this into a professional email. Example: 'Hey, can u fix it?' -> 'Dear Team, I would kindly request that you address this issue at your earliest convenience.' Now do this: 'Yo, the report is late.'"
+Few-shot	Provide 2 to 5 diverse examples of the task.	Teaching the AI a new classification system, a specific writing style, or a complex data extraction pattern.	"Classify sentiment: 1. 'I love this' -> Positive. 2. 'It’s okay' -> Neutral. 3. 'I hate this' -> Negative. Now do this: 'This is mediocre at best.'"
+
+Pro Tip: If your task requires a specific format (e.g., extracting data into a CSV), Few-shot is almost always superior to Zero-shot because it eliminates guesswork.
+Part 3: Chain-of-Thought (CoT) Prompting
+
+CoT forces the AI to "show its work" by breaking down a complex problem into logical intermediate steps. This drastically improves accuracy in math, logic, and multi-step reasoning.
+
+    How it works: You append the phrase "Let’s think step by step" to your prompt, or you provide a few-shot example that includes the reasoning steps.
+
+    Zero-shot CoT: "A baker has 150 eggs. He uses 12 eggs per cake and 5 eggs per dozen cookies. He makes 8 cakes and 4 dozen cookies. How many eggs are left? Let’s think step by step."
+
+    Few-shot CoT (Better): Provide one solved problem with the reasoning chain, then ask the new problem.
+
+Advanced Variant: Self-Consistency
+Instead of asking for one chain-of-thought, you ask the AI to generate 3-5 different reasoning paths and take the majority answer. This reduces "hallucination" in math problems.
+Part 4: AI Productivity Tools (The Modern Stack)
+
+Prompt engineering is useless without the right interface. Here are the top tools categorized by use:
+
+    General Purpose (The Big 3):
+
+        ChatGPT (OpenAI): Best for general text, coding, and creative writing. (GPT-4o is best for reasoning; o1-mini is best for hard math/coding).
+
+        Claude (Anthropic): Best for long-context documentation, nuanced writing, and large codebases (Artifacts feature is great for prototyping).
+
+        Gemini (Google): Best for multimodal tasks (processing videos, images, and audio natively) and connecting to Google Workspace.
+
+    Specialized Productivity:
+
+        Notion AI / Microsoft Copilot: Embedded into your workflows (notes and Office 365) to summarize meetings, draft emails, and pull data from your internal files.
+
+        Perplexity AI: An "answer engine" that cites its sources. Best for research where you need real-time web data and footnotes.
+
+        Otter.ai / Fireflies.ai: AI meeting assistants that transcribe calls and use NLP to generate action items automatically.
+
+Part 5: AI for Coding, Documentation & Research
+
+This is where prompt engineering moves from "chat" to "professional utility."
+1. AI for Coding
+
+    Principle: Be a "Senior Developer" prompt, not a "Junior" one. Specify the language, framework, error handling, and performance constraints.
+
+    Best Technique: Few-shot + CoT combined.
+
+    Prompt Example: "Write a Python function using Pandas to clean a CSV with missing dates. Handle errors gracefully, add type hints, and include a docstring. Let’s think about edge cases before you write the code."
+
+    Tools: GitHub Copilot (autocomplete), Cursor IDE (full-codebase context), ChatGPT o1 (for complex algorithms).
+
+2. AI for Documentation
+
+    Principle: Feed the AI the raw, messy code or meeting notes first, and strictly define the audience (e.g., "Write for a junior developer" vs "Write for a CTO").
+
+    Best Technique: Few-shot (provide 1 good example of your company’s documentation style).
+
+    Prompt Example: "Read this Python script. Generate a README.md with an overview, installation guide, API endpoints, and usage examples. Use the exact formatting style of the example I provided earlier."
+
+3. AI for Research
+
+    Principle: Do not ask for "facts." Ask for summaries with citations and require the AI to distinguish between "consensus" and "controversial" opinions.
+
+    Best Technique: Zero-shot with strict structural constraints, combined with a web-search tool (Perplexity).
+
+    Prompt Example: "Summarize the recent papers on CRISPR gene editing for cancer treatment. Organize by: 1) Breakthroughs in the last year, 2) Ethical concerns, 3) Key researchers. For every claim, provide the source. If a claim is debated, mark it as [CONTROVERSIAL]."
+
+Summary Cheat Sheet
+Goal	Technique	Prompt Skeleton
+Quick Translation	Zero-shot	"Translate [text] to Spanish."
+Formatting Data	Few-shot	"Here are 3 examples of converting text to JSON. Now do this..."
+Solving Math/Logic	Chain-of-Thought	"Solve this. Let’s think step by step."
+Debugging Code	Role-playing + Context	"You are a Senior Engineer. Review this Python code for memory leaks and suggest fixes."
+Writing Docs	Few-shot (Style)	"Write API docs in the style of Stripe's documentation (clear, concise, with curl examples)."
+Academic Research	Constraint-based	"Summarize this paper. Max 200 words. Bullet points. Highlight the novelty and the limitations."

@@ -1,0 +1,1 @@
+ollama create nandhan -f ./Modelfile
